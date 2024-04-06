@@ -15,7 +15,8 @@ frontend  effaroukk_frontend
         bind *:80
         mode http
         default_backend effaroukk_backend
-backend besthor_backend
+
+backend effaroukk_backend
         balance roundrobin
         server 492869-web-01 34.204.91.242:80 check
         server 492869-web-02 3.83.18.157:80 check
