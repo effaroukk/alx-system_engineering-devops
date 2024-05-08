@@ -16,6 +16,12 @@ frontend  effaroukk_frontend
         mode http
         default_backend effaroukk_backend
 
+
+frontend effaroukk-frontend-https
+        bind *:443 ssl crt /etc/haproxy/certs/effaroukk.tech.pem
+        http-request set-header X-Forwarded-Proto https
+        default_backend effaroukk-backend
+
 backend effaroukk_backend
         balance roundrobin
         server 492869-web-01 34.204.91.242:80 check
