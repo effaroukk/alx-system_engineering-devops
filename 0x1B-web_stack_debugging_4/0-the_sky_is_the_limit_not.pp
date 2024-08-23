@@ -1,14 +1,12 @@
-# Slve why our server is failing
-include stdlib
+# Fix problem of high amount of requests
 
-file_line { 'allow many requests':
-  ensure  => present,
-  path    => '/etc/default/nginx',
-  line    => 'LIMIT="-n 4096"',
-  replace => true
+exec {'replace':
+  provider => shell,
+  command  => 'sudo sed -i "s/ULIMIT=\"-n 15\"/ULIMIT=\"-n 4096\"/" /etc/default/nginx',
+  before   => Exec['restart'],
 }
 
-exec { 'restart nginx':
+exec {'restart':
+  provider => shell,
   command  => 'sudo service nginx restart',
-  provider => shell
 }
